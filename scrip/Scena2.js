@@ -144,7 +144,7 @@ class Scena2 extends Phaser.Scene {
                   
                   cursors = this.input.keyboard.createCursorKeys();
               }
-                
+             /*   
             botonDer= this.add.sprite(200, 500, 'flecha');
             botonDer.setInteractive();
             botonDer.on('pointerover', function (event) {
@@ -173,9 +173,10 @@ class Scena2 extends Phaser.Scene {
              botonSalto.on('pointerout', function (event) {
                  botonMueveArriba=false;
               });
-
+*/
               //////////////////////////////////////////
-              this.scale.startFullscreen();
+              
+              
   
            /*
             //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
@@ -253,9 +254,9 @@ class Scena2 extends Phaser.Scene {
     {
         
        /////////controles/////////
-       botonDer.setScrollFactor (0);
-       botonIzq.setScrollFactor (0);
-       botonSalto.setScrollFactor (0);
+      // botonDer.setScrollFactor (0);
+      // botonIzq.setScrollFactor (0);
+      // botonSalto.setScrollFactor (0);
 
       
 
@@ -277,7 +278,7 @@ class Scena2 extends Phaser.Scene {
             
         }
 
-         if (cursors.left.isDown || botonMueveIzq===true)
+         if (cursors.left.isDown)
         {
             if(Atacando === false){
                 jugador.setVelocityX(-160);
@@ -295,7 +296,7 @@ class Scena2 extends Phaser.Scene {
 
             }         
         }
-        else if (cursors.right.isDown||botonMueveDer===true )
+        else if (cursors.right.isDown)
         {
                     if(Atacando === false){
                     jugador.setVelocityX(160);
@@ -326,7 +327,7 @@ class Scena2 extends Phaser.Scene {
            
         }
 
-        if ((cursors.up.isDown||botonMueveArriba) && saltoAct === true && Atacando===false )
+        if (cursors.up.isDown&& saltoAct === true && Atacando===false )
         {
             jugador.setVelocityY(-600);    
             animacionPlayer.anims.play('saltar');
