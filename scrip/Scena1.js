@@ -8,27 +8,27 @@ class Scena1 extends Phaser.Scene {
 
 {
     // personajes 
-    this.load.spritesheet('animacionAnciana', '../src/assets/spritesheet/anciana.png', { frameWidth: 48, frameHeight: 64 });
-    this.load.spritesheet('animacionJugador', '../src/assets/spritesheet/player.png', { frameWidth: 48.25, frameHeight: 50 });
-    this.load.image('playerHitbox', '../src/assets/spritesheet/box.png');
-    this.load.image('ancianHitbox', '../src/assets/spritesheet/boxAnciana.png');
-    this.load.image('logo', '../src/assets/imagenes/phaser3.png');
-    this.load.image('suelo', '../src/assets/spritesheet/suelo.png');
-    this.load.image('fondoParalax', '../src/assets/imagenes/tiledAgentecov1600x600.png');
-    this.load.image('calle', '../src/assets/imagenes/calleAgenteCov800x600.png');
-    this.load.image('casaAmarilla', '../src/assets/imagenes/casaAmarilla.png');
-    this.load.image('casaRoja', '../src/assets/imagenes/casaRoja.png');
-    this.load.image('casaVerde', '../src/assets/imagenes/casaVerde.png');
-    this.load.image('kiosko', '../src/assets/imagenes/kiosko.png');
-    this.load.image('edificioVerde', '../src/assets/imagenes/edificioVerde.png');
-    this.load.image('edificioRojo', '../src/assets/imagenes/edificioRojo.png');
-    this.load.image('edificioAmarillo', '../src/assets/imagenes/edificioAmarillo.png');
-    this.load.image('edificio2PisosRojo', '../src/assets/imagenes/EdificioRojoConToldo.png');
-    this.load.image('faro', '../src/assets/imagenes/faro.png');
-    this.load.image('letrero', '../src/assets/imagenes/letrero.png');
-    this.load.image('flecha', '../src/assets/imagenes/flecha.png');
-    this.load.image('bocaIncendio', '../src/assets/imagenes/bocaIncendio.png');
-    this.load.image('boton', '../src/assets/imagenes/boton.png');
+    this.load.spritesheet('animacionAnciana', 'src/assets/spritesheet/anciana.png', { frameWidth: 48, frameHeight: 64 });
+    this.load.spritesheet('animacionJugador', 'src/assets/spritesheet/player.png', { frameWidth: 48.25, frameHeight: 50 });
+    this.load.image('playerHitbox', 'src/assets/spritesheet/box.png');
+    this.load.image('ancianHitbox', 'src/assets/spritesheet/boxAnciana.png');
+    this.load.image('logo', 'src/assets/imagenes/phaser3.png');
+    this.load.image('suelo', 'src/assets/spritesheet/suelo.png');
+    this.load.image('fondoParalax', 'src/assets/imagenes/tiledAgentecov1600x600.png');
+    this.load.image('calle', 'src/assets/imagenes/calleAgenteCov800x600.png');
+    this.load.image('casaAmarilla', 'src/assets/imagenes/casaAmarilla.png');
+    this.load.image('casaRoja', 'src/assets/imagenes/casaRoja.png');
+    this.load.image('casaVerde', 'src/assets/imagenes/casaVerde.png');
+    this.load.image('kiosko', 'src/assets/imagenes/kiosko.png');
+    this.load.image('edificioVerde', 'src/assets/imagenes/edificioVerde.png');
+    this.load.image('edificioRojo', 'src/assets/imagenes/edificioRojo.png');
+    this.load.image('edificioAmarillo', 'src/assets/imagenes/edificioAmarillo.png');
+    this.load.image('edificio2PisosRojo', 'src/assets/imagenes/EdificioRojoConToldo.png');
+    this.load.image('faro', 'src/assets/imagenes/faro.png');
+    this.load.image('letrero', 'src/assets/imagenes/letrero.png');
+    this.load.image('flecha', 'src/assets/imagenes/flecha.png');
+    this.load.image('bocaIncendio', 'src/assets/imagenes/bocaIncendio.png');
+    this.load.image('boton', 'src/assets/imagenes/boton.png');
     /*this.load.image('sky', '../src/assets/BG.png');
     this.load.image('reset', '../src/assets/botonReset.png');
     this.load.image('logo', '../src/assets/phaser3.png');
