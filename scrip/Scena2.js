@@ -174,13 +174,9 @@ class Scena2 extends Phaser.Scene {
                  botonMueveArriba=false;
               });
 
-            
-            
               //////////////////////////////////////////
               this.scale.startFullscreen();
-                 
-           
-            
+  
            /*
             //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
             stars = this.physics.add.group({
