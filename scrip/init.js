@@ -41,15 +41,18 @@ var btnAtaque;
 var botonDer;
 var botonMueveDer;
 var botonIzq;
+var botonMueveIzq;
 var botonSalto;
+var botonMueveArriba;
 var botonAtaque;
 var botonEspecial;
 // control de datos
-var saltoAct=true;
+var saltoAct=false;
 //puntos
 var textoVidaJugador;
 var textoVidaAnciana;
 // opciones de juegos
+var camaraPringipal;
 var gameOver = false;
 var FxJuntaEstrella;
 var FxJuntaEstrellaChica;

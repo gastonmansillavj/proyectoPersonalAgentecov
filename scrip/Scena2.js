@@ -106,8 +106,8 @@ class Scena2 extends Phaser.Scene {
             animacionPlayer = this.add.sprite(100, 450, 'animacionJugador');
             animacionPlayer.setScale(2)
             // camara 
-            this.cameras.main.setBounds(0,0,2000,600);
-            this.cameras.main.startFollow(jugador);
+            camaraPringipal = this.cameras.main.setBounds(0,0,2000,600);
+            camaraPringipal.startFollow(jugador);
 
             animacionPlayer.on('animationcomplete', ()=>{ 
                 Atacando=false
@@ -144,7 +144,40 @@ class Scena2 extends Phaser.Scene {
                   
                   cursors = this.input.keyboard.createCursorKeys();
               }
-              
+                
+            botonDer= this.add.sprite(200, 500, 'flecha');
+            botonDer.setInteractive();
+            botonDer.on('pointerover', function (event) {
+               botonMueveDer=true;
+            });
+            botonDer.on('pointerout', function (event) {
+                botonMueveDer=false;
+            });
+
+            botonIzq= this.add.sprite(90, 500, 'flecha');
+            botonIzq.flipX=true;
+            botonIzq.setInteractive();
+            botonIzq.on('pointerover', function (event) {
+               botonMueveIzq=true;
+            });
+            botonIzq.on('pointerout', function (event) {
+                botonMueveIzq=false;
+             });
+
+            botonSalto= this.add.sprite(600, 500, 'boton');
+            botonSalto.setScale(0.6);
+            botonSalto.setInteractive();
+            botonSalto.on('pointerover', function (event) {
+                botonMueveArriba=true;
+             });
+             botonSalto.on('pointerout', function (event) {
+                 botonMueveArriba=false;
+              });
+
+            
+            
+              //////////////////////////////////////////
+              this.scale.startFullscreen();
                  
            
             
@@ -216,21 +249,22 @@ class Scena2 extends Phaser.Scene {
 
            // colisiones jugador
             this.physics.add.collider(jugador,Piso,this.activaSalto, null, this);
-            botonDer= this.add.sprite(400, 300, 'flecha');
-            botonDer.setInteractive()
-            
-            botonDer.on('pointerover', function (event) {
-               botonMueveDer=true;
-            });
-            botonDer.on('pointerout', function (event) {
-                botonMueveDer=false;
-             });
+           
             
        
         }
       update ()
     {
         
+       /////////controles/////////
+       botonDer.setScrollFactor (0);
+       botonIzq.setScrollFactor (0);
+       botonSalto.setScrollFactor (0);
+
+      
+
+
+
 
         ///////////// personaje principal/////////////////////////////////////////
         
@@ -243,12 +277,11 @@ class Scena2 extends Phaser.Scene {
             
             animacionPlayer.anims.play('atacar', true)
             Atacando=true;
-            
-            
+                      
             
         }
 
-         if (cursors.left.isDown )
+         if (cursors.left.isDown || botonMueveIzq===true)
         {
             if(Atacando === false){
                 jugador.setVelocityX(-160);
@@ -297,11 +330,11 @@ class Scena2 extends Phaser.Scene {
            
         }
 
-        if (cursors.up.isDown&&saltoAct === true && Atacando===false )
+        if ((cursors.up.isDown||botonMueveArriba) && saltoAct === true && Atacando===false )
         {
             jugador.setVelocityY(-600);    
             animacionPlayer.anims.play('saltar');
-            saltoAct = false;  
+            saltoAct=false;  
 
         }
 
@@ -330,11 +363,6 @@ class Scena2 extends Phaser.Scene {
             saltoAct = true;
         }
 
-        moverDer(){
-            botonMueveDer=true;
-            console.log(botonMueveDer)
-
-        }
 
         
      
