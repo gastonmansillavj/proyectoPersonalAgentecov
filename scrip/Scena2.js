@@ -6,7 +6,9 @@ class Scena2 extends Phaser.Scene {
     
         create(){
         ///// escenario///////
-        tiled = this.add.tileSprite(800,300,1600,600,'fondoParalax')
+        tiled = this.add.tileSprite(800,300,2700,600,'fondoParalax')
+        /////prueba pantalla completa
+        
 
         /*
             platforms = this.physics.add.staticGroup();
@@ -18,73 +20,126 @@ class Scena2 extends Phaser.Scene {
             // plataformas
             
 */
-        // piso
+        // piso//////////
             Piso = this.physics.add.staticGroup({
                 key: 'suelo',
                 repeat: 25,
                 setXY: { x: 0, y: 500, stepX: 128 }
             });
-
+            /////////calle////////
             calle = this.physics.add.staticGroup({
                 key: 'calle',
                 repeat: 10,
                 setXY: { x: 0, y: 500, stepX: 800 }
             });
 
+            ///grupo plataformas///
+
+            platforms = this.physics.add.staticGroup();
+
+            
+
+            ///// edificios//////
            casas = this.physics.add.staticGroup();
            
            let PosCasa = 100;
 
-            for (let index = 0; index < 8; index++) {
+            for (let index = 0; index < 7; index++) {
 
-                numCasas = Phaser.Math.Between(0, 6);
-               
+                numCasas = Phaser.Math.Between(1, 6);
+
+                if( index == 6){
+                    numCasas=0;
+                   
+                }
+                
                 if (numCasas===0) {
-                casas.create(PosCasa, 310, 'casaRoja');
-                PosCasa= PosCasa+ Phaser.Math.Between(200,350);
+                    platforms.create(PosCasa+12,330,'hitBoxPlataforma').body.setSize(188, 20,0);
+                    casas.create(PosCasa,285, 'edificio2PisosRojo');
+                    PosCasa= PosCasa+ Phaser.Math.Between(250,350);
+
+               
                 }
                else if (numCasas===1) { 
+              
+                
 
-                casas.create(PosCasa, 320, 'casaVerde');
-                PosCasa= PosCasa+ Phaser.Math.Between(200,350);
+                platforms.create(PosCasa+5,300,'hitBoxPlataforma').body.setSize(200, 20,0);
+                casas.create(PosCasa, 310, 'casaRoja');
+                PosCasa= PosCasa+ Phaser.Math.Between(250,350);
 
                }
 
                else if (numCasas===2) { 
-
+                platforms.create(PosCasa+5,310,'hitBoxPlataforma').body.setSize(200, 20,0);
                 casas.create(PosCasa, 315, 'casaAmarilla');
                 PosCasa= PosCasa+ Phaser.Math.Between(250,350);
 
             }
             else if (numCasas===3) { 
+                platforms.create(PosCasa+5,310,'hitBoxPlataforma').body.setSize(200, 20,0);
+                platforms.create(PosCasa+5,192,'hitBoxPlataforma').body.setSize(200, 20,0);
                 casas.create(PosCasa, 200, 'edificioAmarillo');
                 PosCasa= PosCasa+ Phaser.Math.Between(250,350);
 
             }
             else if (numCasas===4) { 
+                platforms.create(PosCasa+5,310,'hitBoxPlataforma').body.setSize(200, 20,0);
+                platforms.create(PosCasa+5,192,'hitBoxPlataforma').body.setSize(200, 20,0);
                 casas.create(PosCasa, 200, 'edificioRojo');
                 PosCasa= PosCasa+ Phaser.Math.Between(250,350);
             }
             else if (numCasas===5) { 
+                platforms.create(PosCasa+5,310,'hitBoxPlataforma').body.setSize(200, 20,0);
+                platforms.create(PosCasa+5,192,'hitBoxPlataforma').body.setSize(200, 20,0);
                 casas.create(PosCasa, 200, 'edificioVerde');
                 PosCasa= PosCasa+ Phaser.Math.Between(250,350);
             }
 
             else{
-
-                    casas.create(PosCasa,285, 'edificio2PisosRojo');
-                    PosCasa= PosCasa+ Phaser.Math.Between(250,350);
+                
+                platforms.create(PosCasa+5,315,'hitBoxPlataforma').body.setSize(200, 20,0);
+                casas.create(PosCasa, 320, 'casaVerde');
+                PosCasa= PosCasa+ Phaser.Math.Between(250,350);
 
             }
+        
+
+
+            }
+            ///////oculto las plataformas/////
+
+            platforms.children.iterate(function (child) {
+               
+               child.visible = false ;
+
+            });
             
+            //////////////////////////////////////////////  items////////////////////////////////////////////////
+            items = this.physics.add.group();
+            
+            //items.create(400,300,'moneda10').tipo="moneda10";
 
+            items.moneda10 = this.physics.add.group({
+                key: 'moneda10',
+                repeat: 10,
+                setXY: { x: 0, y: 800, stepX: 128, 
+                },
+                
+            });
 
-            }
+            items.moneda10.children.iterate(function (child) {
+                child.setScale(0.3);
+                child.setBounce(0.5);
+             });
 
 
             ///////////hitbox player///////////////////
             jugador = this.physics.add.sprite(100, 200, 'playerHitbox');
-            jugador.setBounce(0.2); 
+            jugador.score=0;
+            //jugador.setBounce(0.2);
+            /////// desaparecer hit box personaje///// 
+            jugador.visible = false ;
             //jugador.setCollideWorldBounds(true);
             jugador.setScale(0.2,0.5);
             //jugador.body.setSize(15, 35,0,0);
@@ -92,15 +147,20 @@ class Scena2 extends Phaser.Scene {
             textoVidaJugador =this.add.text(350, 16, 'Vida jugador 5', { fontSize: '15px', fill: '#994500' });
 
 
-
             //////////// hitbox abuela///////////
-            Anciana = this.physics.add.sprite(100, 200, 'ancianHitbox'); 
+            Anciana = this.physics.add.sprite(100, 200, 'ancianHitbox');
+             
             //jugador.setCollideWorldBounds(true);
-            Anciana.setScale(0.5,0.7);
+            Anciana.setScale(0.6,0.7);
             //jugador.body.setSize(15, 35,0,0);
+
+            /////// desaparecer hit box personaje///// 
+            Anciana.visible = false ;
+            //////////////
             vidaAnciana= 5;
             textoVidaAnciana = this.add.text(350, 35, 'Vida anciana 5', { fontSize: '15px', fill: '#994500' });
-
+            animacionAnciana = this.add.sprite(400, 450, 'animacionAnciana').setScale(0.4,0.4);
+            
 
             ////////// animaciones player/////////////////////////
             animacionPlayer = this.add.sprite(100, 450, 'animacionJugador');
@@ -111,12 +171,76 @@ class Scena2 extends Phaser.Scene {
 
             animacionPlayer.on('animationcomplete', ()=>{ 
                 Atacando=false
-                console.log("termino")
+                jugador.Rociador.disableBody(true, true);
+                
             });
-            
-   
-          
 
+
+            /////////// rociador player/////////
+         jugador.Rociador=this.physics.add.sprite(500, 500, 'disparoRociador').setScale(0.7);
+        // jugador.Rociador.visible = false ;
+         jugador.Rociador.body.allowGravity = false;
+         jugador.Rociador.body.setSize(120, 50,1,0);
+
+        //////////////////////////covidEnemigos////////////////////////
+      
+
+
+        covidRojo = this.physics.add.group({
+            key: 'covidRojo',
+            repeat: 8,
+            setXY: { x: 500, y: 350, stepX:Phaser.Math.Between(140,600) }        
+        });
+        var PosicionXR=400;
+        covidRojo.children.iterate(function (child) { 
+            
+            child.x=PosicionXR +Phaser.Math.Between(0,380);
+            PosicionXR=child.x;
+            child.setBounceY(1);
+            child.setScale(0.4);
+
+            child.on('animationcomplete', ()=>{           
+                child.anims.play('reboteCovidArriba', true);
+                
+            });
+
+        });
+////////////////////////////////// civil//////////////////////////////////////
+       
+civil = this.physics.add.group({
+
+    key: 'civil',
+    repeat: 2,
+    setXY: { x: 450, y: 250, stepX:Phaser.Math.Between(150,250) } 
+          
+});
+
+civil.children.iterate(function (child) { 
+    child.setScale(0.4);
+    child.anims.play('civilConBarbijo', true)
+   
+});
+
+
+
+        ////////////grupo covid verde/////////////////////////////////////
+
+        
+
+        covidVerde = this.physics.add.group({
+            key: 'covidVerde',
+            repeat: 6,
+            setXY: { x: 650, y: 150, stepX:Phaser.Math.Between(340,530) }        
+        });
+
+
+        covidVerde.children.iterate(function (child) { 
+            child.setScale(0.4);
+            child.disparoListo=false;
+        });
+
+        disparoCovidVerde = this.physics.add.group();
+        
             //////////////// items de la calle//////////////////
             
             faro = this.physics.add.staticGroup({
@@ -241,13 +365,64 @@ class Scena2 extends Phaser.Scene {
             this.physics.add.collider(player,bombs,this.hitBomb, null, this);
             this.physics.add.collider(player,platforms,this.activaSalto, null, this);
             */
+
+
+            // pantalla completa 
+            //this.scale.startFullscreen();
+           
+            /// gui/////
+            Textos=this.add.text();
+            Textos.Score= this.add.text(100,25, "Score: 0", {
+                font: "25px Arial",
+                fill: "#FFFFFF",
+                align: "center",
+                stroke: "#de77ae",
+                strokeThickness: 10
+            });
+            Textos.Tiempo = this.add.text(600,25, "tiempo: 1", {
+                font: "25px Arial",
+                fill: "#FFFFFF",
+                align: "center",
+                stroke: "#de77ae",
+                strokeThickness: 10
+            }); 
+
+            
+        TiempoJuego = this.time.addEvent({ delay: 1000, callback: this.cadaSegundo , callbackScope: this, loop: true });
+
+
+            //colision monedas 
+            this.physics.add.overlap(jugador,items.moneda10,this.sumaPuntos, null, this);
+            this.physics.add.collider(Piso,items.moneda10,this.detieneMonedas, null, this);
+
+           
+           
+            
+          
+            
+            // colision disparo covid
+            this.physics.add.overlap(disparoCovidVerde,Piso,this.destruyeCovidVerde, null, this);
+            // colision civil
+            this.physics.add.collider(civil,Piso);
+
            //colisiones Anciana
            this.physics.add.collider(Anciana,Piso);
+           
+           
 
            // colisiones jugador
             this.physics.add.collider(jugador,Piso,this.activaSalto, null, this);
-           
+            this.physics.add.collider(jugador,platforms,this.activaSalto, null, this);
+            this.physics.add.overlap(jugador.Rociador,covidRojo,this.destruyeEnemigos, null, this);
+            this.physics.add.overlap(jugador.Rociador,covidVerde,this.destruyeEnemigos, null, this);
+            // colisiones covid
+            this.physics.add.collider(covidRojo,covidRojo);
+            this.physics.add.collider(covidRojo,platforms,this.activaAnimacionCovRojo, null, this);
+            this.physics.add.collider(covidRojo,Piso,this.activaAnimacionCovRojo, null, this);
             
+            this.physics.add.collider(covidVerde,platforms);
+            this.physics.add.collider(covidVerde,Piso);
+   
        
         }
       update ()
@@ -258,10 +433,16 @@ class Scena2 extends Phaser.Scene {
       // botonIzq.setScrollFactor (0);
       // botonSalto.setScrollFactor (0);
 
+
+      ///////////  gui/////
+      Textos.Tiempo.text= "tiempo : " + temporizadorDeJuego
+      Textos.Score.text= "Score :  " + jugador.score
+      Textos.Tiempo.setScrollFactor (0);
+      Textos.Score.setScrollFactor (0);
+      if (temporizadorDeJuego==0) {
+        TiempoJuego.paused = true;
+      }
       
-
-
-
 
         ///////////// personaje principal/////////////////////////////////////////
         
@@ -269,11 +450,32 @@ class Scena2 extends Phaser.Scene {
         textoVidaJugador.y=jugador.y-50
         textoVidaJugador.setText('Vida jugador '+vidaJugador)
 
-        if (btnAtaque.isDown&&saltoAct === true)
+        jugador.Rociador
+       
+
+        if (btnAtaque.isDown&&saltoAct === true&&jugador.body.touching.down)
         {   
-            
-            animacionPlayer.anims.play('atacar', true)
+
+            if (animacionPlayer.flipX==false) {
+                jugador.Rociador.flipX=false;
+                jugador.Rociador.enableBody(true, jugador.x+60,jugador.y-10, true, true);
+               
+               
+            } else {
+    
+                jugador.Rociador.flipX=true;
+                jugador.Rociador.enableBody(true, jugador.x-60,jugador.y-10, true, true);
+                
+                
+                
+            }
+            animacionPlayer.anims.play('atacar', true);
             Atacando=true;
+
+           
+            
+            
+            //jugador.Rociador = true ;
                       
             
         }
@@ -327,7 +529,7 @@ class Scena2 extends Phaser.Scene {
            
         }
 
-        if (cursors.up.isDown&& saltoAct === true && Atacando===false )
+        if (cursors.up.isDown&& saltoAct === true && Atacando===false &&jugador.body.touching.down )
         {
             jugador.setVelocityY(-600);    
             animacionPlayer.anims.play('saltar');
@@ -346,20 +548,179 @@ class Scena2 extends Phaser.Scene {
             
         }
 
-        // anciana 
-        Anciana.setVelocityX(10);
+        
+        //// covid rojo ia //
+
+
+        covidRojo.children.iterate(function (child) { 
+            
+          
+           
+            if (Phaser.Math.Distance.BetweenPoints(Anciana, child)<=350 ) {
+               
+                child.setTint(0xff0000);
+
+                if (Anciana.x<child.x) {
+                    child.setVelocityX (-100)
+                    
+                } else {
+                    child.setVelocityX (100)
+                }
+                
+            } else {
+                child.setVelocityX (0)
+                
+            }
+        });
+
+
+       tiempo =tiempo+1;
+       
+
+       covidVerde.children.iterate(function (child) { 
+
+        
+            if ((Phaser.Math.Distance.BetweenPoints(jugador,child)<=350 ) ) {
+                child.setTint(0xff0000);
+                child.disparoListo = true;
+                
+                    if(tiempo >= 150 ) { 
+
+                        covidVerde.children.iterate(function (child) { 
+                           
+                            if (child.disparoListo=== true){
+                                
+                                disparoCovidVerde.create(child.x,child.y, 'disparoVerde')
+
+                                disparoCovidVerde.children.iterate(function (child) {
+      
+                                        if (jugador.x<child.x) {
+
+                                            child.setVelocity((jugador.x-child.x)+70,-600);
+                                            //child.setVelocity((jugador.x-child.x),-800+(jugador.x-child.x)*-1)
+
+                                        } 
+                                        
+                                        else {
+                                             child.setVelocity((jugador.x-child.x)-70,-600);
+
+                                        
+                                        }
+
+                                       
+                                    });
+
+                                
+                            
+                                child.disparoListo=false;
+
+                            }
+
+                             
+
+                        });
+                        
+                        
+
+                        tiempo=0;
+                    }
+
+                
+
+            }
+            else {
+
+                child.clearTint();
+            
+            }
+
+        });
+
+       
+      
+     
+        // anciana
+        
+        if (Phaser.Math.Distance.BetweenPoints(jugador,Anciana)<=150 ) {
+            Anciana.setVelocityX(10);
+            animacionAnciana.anims.play('ancianaCamina', true)
+
+            if (Phaser.Math.Between(0,500)== 10) {
+
+                for (let index = 0; index <5; index++) {
+
+                    items.moneda10.create(Anciana.x,Anciana.y, 'moneda10').setVelocity(Phaser.Math.Between(-100,100),Phaser.Math.Between(-650,-850)).setScale(0.3).setBounce(0.5);
+                   
+                }
+                
+            }
+         
+            
+
+           
+        } else {
+            Anciana.setVelocityX(0);
+            animacionAnciana.anims.play('ancianaParada', true)
+
+            
+        }
+        
         textoVidaAnciana.setText('Vida anciana '+vidaAnciana)
         textoVidaAnciana.x=Anciana.x-60
         textoVidaAnciana.y=Anciana.y-60
+        //// animacion anciana
+        animacionAnciana.x=Anciana.x+10;
+        animacionAnciana.y=Anciana.y;
       
-        
+       
 
         }
                
         activaSalto(player,platform) {
+            
             saltoAct = true;
         }
 
+        activaAnimacionCovRojo(covidRojo){
+            if(covidRojo.body.touching.down)
+            {
+                covidRojo.anims.play('reboteCovidAbajo', true);
+            }
+            
+
+        }
+        destruyeCovidVerde(disparoCovidVerde,Piso){
+
+            disparoCovidVerde.destroy();
+
+        }
+        cadaSegundo( ){
+
+            temporizadorDeJuego = temporizadorDeJuego - 1
+            
+        }
+
+        sumaPuntos (jugador,item){
+            
+            jugador.score = jugador.score + 10;
+            item.destroy()
+            console.log(jugador.score)
+
+        }
+        detieneMonedas (Piso,moneda){
+            
+         moneda.setVelocityX(0);
+
+        }
+
+        destruyeEnemigos(rociador,enemigos){
+            enemigos.destroy();
+          
+
+        }
+       
+       
+            
 
         
      
