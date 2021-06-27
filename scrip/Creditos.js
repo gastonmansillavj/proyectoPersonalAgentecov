@@ -8,6 +8,9 @@ create ()
 
 
 {   
+    this.add.image(400, 300, 'creditos')
+    SonidoMouse = this.sound.add('Mouse');
+
     Textos=this.add.text();
     var Salir = this.add.image(400, 520, 'BotonPlay').setScale(1.5,0.3).setTint(0xff0000);
     Salir.setInteractive()
@@ -23,6 +26,7 @@ create ()
     Salir.on('pointerover', function (event) {
 
         this.clearTint();
+        SonidoMouse.play()
 
     });
 

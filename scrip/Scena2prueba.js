@@ -5,8 +5,8 @@ class Scena2 extends Phaser.Scene {
     }
     
         create(){
+            nivel="juego"
             /////////// sonidos/////////
-            
             sonido = this.add.group();
             sonido.rociador = this.sound.add('rociador');
             sonido.juntaMonedas = this.sound.add('juntaMonedas');
@@ -136,12 +136,11 @@ class Scena2 extends Phaser.Scene {
             });
             
             //////////////////////////////////////////////  items////////////////////////////////////////////////
-            
-
             items = this.physics.add.group();
-           
-           
-        
+
+            
+            //items.create(400,300,'moneda10').tipo="moneda10";
+                    //// moneda 10
             items.moneda10 = this.physics.add.group({
                 key: 'moneda10',
                 repeat: 10,
@@ -184,28 +183,11 @@ class Scena2 extends Phaser.Scene {
                 child.setBounce(0.5);
              });
 
-             ///////////////////////////power ups /////////////////////
-
-
-
-             items.reloj = this.physics.add.group()
-             items.reloj.create(-1700,110,'reloj')
-             items.jeringa = this.physics.add.group()
-             items.jeringa.create(-1500,310,'jeringa')
-             items.jeringaLanzar = this.physics.add.group()
-             items.jeringaLanzar.create(-1500,310,'jeringa')
-            
-             
-             
-             items.corazon = this.physics.add.group()
-             items.corazon.create(-1400,310,'Corazon')
 
 
             ///////////hitbox player///////////////////
             jugador = this.physics.add.sprite(100, 200, 'playerHitbox');
             jugador.score=0;
-            jugador.powerUpJeringa=false;
-            jugador.powerUpEscudo=false;
             //jugador.setBounce(0.2);
             /////// desaparecer hit box personaje///// 
             jugador.visible = false ;
@@ -218,10 +200,6 @@ class Scena2 extends Phaser.Scene {
 
             //////////// hitbox abuela///////////
             Anciana = this.physics.add.sprite(100, 200, 'ancianHitbox');
-            Anciana.jeringa=this.add.sprite(380, 100, 'jeringa');
-            Anciana.velocidad=0;
-            Anciana.velocidadActivada=false;
-            
              
             //jugador.setCollideWorldBounds(true);
             Anciana.setScale(0.6,0.7);
@@ -256,7 +234,7 @@ class Scena2 extends Phaser.Scene {
             animacionPlayer.setScale(2)
             // camara 
             camaraPringipal = this.cameras.main.setBounds(0,0,2000,600);
-            camaraPringipal.startFollow(Anciana);
+            camaraPringipal.startFollow(jugador);
 
             animacionPlayer.on('animationcomplete', ()=>{ 
                 Atacando=false
@@ -274,15 +252,16 @@ class Scena2 extends Phaser.Scene {
         //////////////////////////covidEnemigos////////////////////////
       
 
+
         covidRojo = this.physics.add.group({
             key: 'covidRojo',
             repeat: 8,
-            setXY: { x: 500, y: 350, stepX:Phaser.Math.Between(140,300) }        
+            setXY: { x: 500, y: 350, stepX:Phaser.Math.Between(140,600) }        
         });
         var PosicionXR=400;
         covidRojo.children.iterate(function (child) { 
             
-            child.x=PosicionXR +Phaser.Math.Between(140,300);
+            child.x=PosicionXR +Phaser.Math.Between(0,380);
             PosicionXR=child.x;
             child.setBounceY(1);
             child.setScale(0.4);
@@ -297,17 +276,14 @@ class Scena2 extends Phaser.Scene {
 
 
 
-
-
-
         ////////////grupo covid verde/////////////////////////////////////
 
         
 
         covidVerde = this.physics.add.group({
             key: 'covidVerde',
-            repeat: 8,
-            setXY: { x: 650, y: 150, stepX:Phaser.Math.Between(180,350) }        
+            repeat: 6,
+            setXY: { x: 650, y: 150, stepX:Phaser.Math.Between(340,530) }        
         });
 
 
@@ -317,7 +293,6 @@ class Scena2 extends Phaser.Scene {
         });
 
         disparoCovidVerde = this.physics.add.group();
- 
         
             //////////////// items de la calle//////////////////
             
@@ -341,7 +316,6 @@ class Scena2 extends Phaser.Scene {
 
               ///////// botones///////////////////////////////// 
               btnAtaque=this.input.keyboard.addKey('A');
-              btnPowerUp=this.input.keyboard.addKey('S');
             
               if (cursors =! undefined){
                   
@@ -482,31 +456,17 @@ class Scena2 extends Phaser.Scene {
            
            
             
-          /// colision power ups//////
-
-            this.physics.add.collider(items.reloj,Piso);
-            this.physics.add.collider(items.corazon,Piso);
-            this.physics.add.collider(items.jeringa,Piso);
-            this.physics.add.overlap (jugador,items.corazon,this.destruyepowerUpsCorazon, null, this);
-            this.physics.add.overlap (jugador,items.jeringa,this.destruyepowerUpsJeringa, null, this);
-            this.physics.add.overlap (jugador,items.reloj,this.destruyepowerUpsReloj, null, this);
-           
-            
-         
-          console.log(items.reloj)
+          
             
             // colision disparo covid
             this.physics.add.overlap(disparoCovidVerde,Piso,this.destruyeCovidVerde, null, this);
-   
-            
+            // colision civil
+          
 
            //colisiones Anciana
            this.physics.add.collider(Anciana,Piso);
            this.physics.add.overlap(Anciana,covidRojo,this.quitaVida, null, this);
            this.physics.add.overlap(Anciana,disparoCovidVerde,this.quitaVida, null, this);
-           this.physics.add.overlap(Anciana,items.jeringaLanzar,this.destruyeJeringaLanzar, null, this);
-           
-           
            
            
 
@@ -544,7 +504,6 @@ class Scena2 extends Phaser.Scene {
       Textos.Tiempo.setScrollFactor (0);
       Textos.Score.setScrollFactor (0);
       Anciana.foto.setScrollFactor (0);
-      Anciana.jeringa.setScrollFactor (0);
      // vidaAnciana.setScrollFactor (0);
       vidaAnciana.children.iterate(function (child) { 
         child.setScrollFactor (0);  
@@ -559,38 +518,6 @@ class Scena2 extends Phaser.Scene {
 
         ///////////// personaje principal/////////////////////////////////////////
         
-        if (jugador.powerUpJeringa==true){
-
-            Anciana.jeringa.visible = true ;
-
-            if (btnPowerUp.isDown) {
-
-                jugador.powerUpJeringa=false;
-            
-               
-                if (animacionPlayer.flipX==false) {
-
-                    items.jeringaLanzar.create(jugador.x+20,jugador.y,'jeringa').setFlipX(false).setScale(0.6).setVelocityX(400).body.allowGravity = false;
-                    
-               
-                } else {
-
-        
-                  items.jeringaLanzar.create(jugador.x-20,jugador.y,'jeringa').setFlipX(true).setScale(0.6).setVelocityX(-400).body.allowGravity = false;
-                  
-                    
-                    
-                    
-                }
-                
-            }
-   
-
-        }
-        else{
-            Anciana.jeringa.visible = false ;
-        }
-
 
         if (btnAtaque.isDown&&saltoAct === true&&jugador.body.touching.down)
         {   
@@ -785,37 +712,13 @@ class Scena2 extends Phaser.Scene {
      
         /////////////// anciana//////////////
         if (Anciana.x>=1800  ) {
-            sonido.musica.pause()
+            sonido.musica.stop()
             this.scene.start('NivelGanado');
-
         }
-
-        if(Anciana.velocidad-temporizadorDeJuego>5)
-            {
-                Anciana.velocidadActivada=false
-                animacionAnciana.clearTint();
-            }
-
-         
-            
-
-        if(Anciana.velocidadActivada==true ){
-            Anciana.setVelocityX(50);
-            animacionAnciana.anims.play('ancianaCamina', true)
-
-        }
-        else{
-            Anciana.setVelocityX(30); 
-            animacionAnciana.anims.play('ancianaCamina', true)
-        }
-        
-
-
-
         if (Phaser.Math.Distance.BetweenPoints(jugador,Anciana)<=150 ) {
-           
-  
-            console.log(Anciana.velocidad-temporizadorDeJuego)
+            Anciana.setVelocityX(30);
+            animacionAnciana.anims.play('ancianaCamina', true)
+
             let monedasAleatorio=Phaser.Math.Between(0,1500)
             if (monedasAleatorio== 10) {
 
@@ -853,7 +756,8 @@ class Scena2 extends Phaser.Scene {
 
            
         } else {
-           
+            Anciana.setVelocityX(0);
+            animacionAnciana.anims.play('ancianaParada', true)
 
             
         }
@@ -921,11 +825,8 @@ class Scena2 extends Phaser.Scene {
         }
 
         destruyeEnemigos(rociador,enemigos){
-            
             enemigos.destroy();
             sonido.explosionCovidRojo.play()
-            this.creaPowerUps(enemigos)
-            
             
           
 
@@ -936,9 +837,8 @@ class Scena2 extends Phaser.Scene {
             covidRojo.destroy();
             sonido.choqueDisparoVerde.play()
             vidaAnciana.children.iterate(function (child) { 
-
-                if (vidaAnciana.vida==child.id) {
-                    child.destroy() ;
+                if (vidaAnciana.vida== child.id) {
+                    child.visible = false ;
                     
                 }
 
@@ -948,67 +848,8 @@ class Scena2 extends Phaser.Scene {
 
         }
        
-       creaPowerUps(enemigos){
-           let aleatorio = Phaser.Math.Between(0,4);
-            if(aleatorio==0 ){
-                items.reloj.create(enemigos.x,enemigos.y-100,'reloj').setScale(0.5)
-            }
-            else if(aleatorio==1){
-                items.jeringa.create(enemigos.x,enemigos.y-100,'jeringa').setScale(0.8)
-               
-            }
-            else if(aleatorio==2){
-                items.corazon.create(enemigos.x,enemigos.y-100,'Corazon').setScale(0.5)
-            }
-            else{
-
-            }
-
-       }
-
-          
-       destruyepowerUpsCorazon(player,corazon){
-        console.log(vidaAnciana.countActive())
-        corazon.destroy();
-        sonido.juntaJeringas.play()
-        vidaAnciana.vida=vidaAnciana.vida+1
-        vidaAnciana.create(150+(26*vidaAnciana.countActive()),50,'Corazon').setScale(0.25).id=vidaAnciana.vida
-
-
-       }
-
-       destruyepowerUpsJeringa(player,jeringa){
-
-
-        //console.log(vidaAnciana.countActive())
-        jeringa.destroy();
-        jugador.powerUpJeringa=true;
-        sonido.juntaJeringas.play()
-        //vidaAnciana.vida=vidaAnciana.vida+1
-       // vidaAnciana.create(150+(26*vidaAnciana.countActive()),50,'Corazon').setScale(0.25).id=vidaAnciana.vida
-
-
-       }
-
-       destruyeJeringaLanzar(anciana,Jeringa){
-
-           Jeringa.destroy();
-           Anciana.velocidad=temporizadorDeJuego
-           Anciana.velocidadActivada=true
-           animacionAnciana.setTint(0xE7F24E);
-
-       }
-
-
-       destruyepowerUpsReloj(player,Reloj){
-
-        Reloj.destroy();
-        jugador.powerUpEscudo=true;
-        temporizadorDeJuego+=5
-        sonido.juntaJeringas.play()
-        
-       }
-      
+       
+            
 
         
      

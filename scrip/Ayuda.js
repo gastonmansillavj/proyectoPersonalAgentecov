@@ -7,12 +7,15 @@ class Ayuda extends Phaser.Scene {
 create ()
 
 {   
+
+    this.add.image(400, 300, 'ayuda')
+    SonidoMouse = this.sound.add('Mouse');
  
 // ANIMACION DE JUGADOR
     //  Input Events
     
     Textos=this.add.text();
-    var Salir = this.add.image(400, 520, 'BotonPlay').setScale(1.5,0.3).setTint(0xff0000);
+    var Salir = this.add.image(650, 560, 'BotonPlay').setScale(1.5,0.3).setTint(0xff0000);
     Salir.setInteractive()
     Salir.on('pointerdown', () => this.scene.start('menu') );
       
@@ -26,10 +29,12 @@ create ()
     Salir.on('pointerover', function (event) {
 
         this.clearTint();
+        SonidoMouse.play()
 
     });
 
-    Textos.Salir= this.add.text(370,500, 'Salir', {
+
+    Textos.Salir= this.add.text(620,540, 'Salir', {
         font: "25px Arial",
         fill: "#FFFFFF",
         align: "center",

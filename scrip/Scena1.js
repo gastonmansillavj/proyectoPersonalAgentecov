@@ -11,8 +11,8 @@ class Scena1 extends Phaser.Scene {
     this.load.spritesheet('animacionAnciana', 'src/assets/spritesheet/spriteAnciana.png', { frameWidth: 252, frameHeight:250 });
     this.load.spritesheet('animacionJugador', 'src/assets/spritesheet/player.png', { frameWidth: 48.25, frameHeight: 50 });
     this.load.spritesheet('covidRojo', 'src/assets/spritesheet/CovidRojo.png', { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet('covidVerde', 'src/assets/spritesheet/covidVerde.png', { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet('civil', 'src/assets/spritesheet/civil.png', { frameWidth: 84, frameHeight: 200 });
+    this.load.spritesheet('covidVerde', 'src/assets/spritesheet/CovidVerde.png', { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet('civilSinBarbijo', 'src/assets/spritesheet/civil.png', { frameWidth: 84, frameHeight: 200 });
     this.load.spritesheet('civilConBarbijo', 'src/assets/spritesheet/civilConBarbijo.png', { frameWidth: 84, frameHeight: 200 });
     this.load.image('disparoVerde', 'src/assets/spritesheet/disparoCovidVerde.png');
     this.load.image('BotonPlay', 'src/assets/spritesheet/botones.png');
@@ -38,7 +38,29 @@ class Scena1 extends Phaser.Scene {
     this.load.image('boton', 'src/assets/imagenes/boton.png');
     this.load.image('moneda10', 'src/assets/imagenes/moneda10.png');
     this.load.image('moneda5', 'src/assets/imagenes/moneda5.png');
+    this.load.image('moneda1', 'src/assets/imagenes/moneda1.png');
     this.load.image('disparoRociador', 'src/assets/imagenes/disparoRociador.png');
+    this.load.image('Corazon', 'src/assets/imagenes/corazon.png');
+    this.load.image('AncianaFoto', 'src/assets/imagenes/barraPuntos.png');
+    this.load.image('reloj', 'src/assets/imagenes/reloj.png');
+    this.load.image('Barbijo', 'src/assets/imagenes/barbijo.png');
+    this.load.image('FondoMenu', 'src/assets/imagenes/FondoMenuPrincipal.png');
+    this.load.image('FondoPerdidoGanado', 'src/assets/imagenes/fondoPerdidoGanado.png');
+    this.load.image('jeringa', 'src/assets/imagenes/jeringa.png');
+    this.load.image('ayuda', 'src/assets/imagenes/fondoAyuda.png');
+    this.load.image('creditos', 'src/assets/imagenes/fondoCreditos.png');
+    this.load.image('escudo', 'src/assets/imagenes/escudo.png');
+    this.load.audio('musica', ['src/assets/sonido/musicaJuego.mp3']);
+    this.load.audio('explosionCovidRojo', ['src/assets/sonido/covidRojoExplota.mp3']);
+    this.load.audio('choqueDisparoVerde', ['src/assets/sonido/disparoVerdeChoca.mp3']);
+    this.load.audio('juntaJeringa', ['src/assets/sonido/juntaJeringa.mp3']);
+    this.load.audio('juntaMonedas', ['src/assets/sonido/juntaMonedas.mp3']);
+    this.load.audio('rociador', ['src/assets/sonido/rociador.mp3']);
+    this.load.audio('salto', ['src/assets/sonido/salto.mp3']);
+    this.load.audio('Mouse', ['src/assets/sonido/sonidoMouse.mp3']);
+    
+    
+
     /*this.load.image('sky', '../src/assets/BG.png');
     this.load.image('reset', '../src/assets/botonReset.png');
     this.load.image('logo', '../src/assets/phaser3.png');
@@ -60,7 +82,10 @@ class Scena1 extends Phaser.Scene {
 
 create ()
 
-{   
+{   this.add.image(400, 300, 'FondoMenu')
+SonidoMouse = this.sound.add('Mouse');
+
+
  
 // ANIMACION DE JUGADOR
 
@@ -123,11 +148,12 @@ this.anims.create({
 });
 
 this.anims.create({
-    key: 'civilCaminar',
-    frames: this.anims.generateFrameNumbers('civil', { start: 0, end:3 }),
+    key: 'civilSinBarbijo',
+    frames: this.anims.generateFrameNumbers('civilSinBarbijo', { start: 0, end:3 }),
     frameRate: 5,
     repeat: -1
 });
+
 this.anims.create({
     key: 'civilConBarbijo',
     frames: this.anims.generateFrameNumbers('civilConBarbijo', { start: 0, end:3 }),
@@ -142,12 +168,14 @@ this.anims.create({
     
     var logo = this.add.image(400, 380, 'BotonPlay').setScale(1.5,0.3).setTint(0xff0000);
       logo.setInteractive()
-      logo.on('pointerdown', () => this.scene.start('juego') );
+      logo.on('pointerdown', () => this.scene.start(nivel) );
+     
       
 
       logo.on('pointerout', function (event) {
 
         this.setTint(0xff0000);
+        
         
     });
 
@@ -162,24 +190,28 @@ this.anims.create({
     logo.on('pointerover', function (event) {
 
         this.clearTint();
+        SonidoMouse.play()
+      
 
     });
 
     var btnOpciones = this.add.image(400, 450, 'BotonPlay').setScale(1.5,0.3).setTint(0xff0000);
       btnOpciones.setInteractive();
       btnOpciones.on('pointerdown', () => this.scene.start('Creditos') );
-      
+     
 
       btnOpciones.on('pointerout', function (event) {
 
         this.setTint(0xff0000);
+       
         
     });
 
     btnOpciones.on('pointerover', function (event) {
 
         this.clearTint();
-
+        SonidoMouse.play()
+        
     });
 
     Textos.Creditos= this.add.text(350,430, 'Creditos', {
@@ -198,12 +230,15 @@ this.anims.create({
     btnAyuda.on('pointerout', function (event) {
 
         this.setTint(0xff0000);
+      
         
     });
 
     btnAyuda.on('pointerover', function (event) {
 
         this.clearTint();
+        SonidoMouse.play()
+        
 
     });
 

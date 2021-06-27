@@ -27,6 +27,7 @@ var Anciana;
 var animacionAnciana;
 var vidaAnciana;
 var covidRojo;
+var enemigoCivil;
 var civil;/// civil
 //////////// verde////
 var covidVerde;
@@ -48,6 +49,7 @@ var Piso;
 // controles
 var cursors;
 var btnAtaque;
+var btnPowerUp
 var botonDer;
 var botonMueveDer;
 var botonIzq;
@@ -56,22 +58,27 @@ var botonSalto;
 var botonMueveArriba;
 var botonAtaque;
 var botonEspecial;
+var btnBarbijo;
 // control de datos
 var saltoAct=false;
 var tiempo =0;
 var Textos;
 var TiempoJuego;
-var temporizadorDeJuego = 30;
+var temporizadorDeJuego = 120;
+var tiempoBarbijo=0;
 //puntos
 var textoVidaJugador;
 var textoVidaAnciana;
 // opciones de juegos
+var nivel ="juego";
 var camaraPringipal;
 var gameOver = false;
 var FxJuntaEstrella;
 var FxJuntaEstrellaChica;
 var FxExplosion;
+var generaCovidRojo=0;
 /// fondo///
+var sonido;
 var tiled;
 var calle;
 var casas;
@@ -79,3 +86,4 @@ var numCasas;
 var faro;
 var Letrero;
 var BocaIncendio;
+var SonidoMouse;
