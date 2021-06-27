@@ -44,7 +44,7 @@ class Scena1 extends Phaser.Scene {
     this.load.image('AncianaFoto', 'src/assets/imagenes/barraPuntos.png');
     this.load.image('reloj', 'src/assets/imagenes/reloj.png');
     this.load.image('Barbijo', 'src/assets/imagenes/barbijo.png');
-    this.load.image('FondoMenu', 'src/assets/imagenes/FondoMenuPrincipal.png');
+    this.load.image('FondoMenu', 'src/assets/imagenes/fondoMenuPrincipal.png');
     this.load.image('FondoPerdidoGanado', 'src/assets/imagenes/fondoPerdidoGanado.png');
     this.load.image('jeringa', 'src/assets/imagenes/jeringa.png');
     this.load.image('ayuda', 'src/assets/imagenes/fondoAyuda.png');
