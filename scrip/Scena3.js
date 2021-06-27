@@ -317,7 +317,7 @@ civil.create(jugador.x, 800, 'civilSinBarbijo').setScale(0.5).anims.play('civilS
         
 
         covidVerde = this.physics.add.group({
-            key: 'covidVerde',
+            key: 'CovidVerde',
             repeat: 6,
             setXY: { x: 1500, y: 150, stepX:Phaser.Math.Between(-150,-250) }        
         });

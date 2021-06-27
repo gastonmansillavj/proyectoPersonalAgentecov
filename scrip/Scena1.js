@@ -148,6 +148,13 @@ this.anims.create({
 });
 
 this.anims.create({
+    key: 'covidVerde',
+    frames: this.anims.generateFrameNumbers('covidVerde', { start: 0, end:0 }),
+    frameRate: 10,
+    repeat: 1
+});
+
+this.anims.create({
     key: 'civilSinBarbijo',
     frames: this.anims.generateFrameNumbers('civilSinBarbijo', { start: 0, end:3 }),
     frameRate: 5,
