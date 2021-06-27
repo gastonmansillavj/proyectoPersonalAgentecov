@@ -11,7 +11,7 @@ class Scena1 extends Phaser.Scene {
     this.load.spritesheet('animacionAnciana', 'src/assets/spritesheet/spriteAnciana.png', { frameWidth: 252, frameHeight:250 });
     this.load.spritesheet('animacionJugador', 'src/assets/spritesheet/player.png', { frameWidth: 48.25, frameHeight: 50 });
     this.load.spritesheet('covidRojo', 'src/assets/spritesheet/CovidRojo.png', { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet('covidVerde', 'src/assets/spritesheet/CovidVerde.png', { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet('CovidVerde', 'src/assets/spritesheet/CovidVerde.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('civilSinBarbijo', 'src/assets/spritesheet/civil.png', { frameWidth: 84, frameHeight: 200 });
     this.load.spritesheet('civilConBarbijo', 'src/assets/spritesheet/civilConBarbijo.png', { frameWidth: 84, frameHeight: 200 });
     this.load.image('disparoVerde', 'src/assets/spritesheet/disparoCovidVerde.png');
@@ -143,13 +143,6 @@ this.anims.create({
 this.anims.create({
     key: 'reboteCovidAbajo',
     frames: this.anims.generateFrameNumbers('covidRojo', { start: 1, end:1 }),
-    frameRate: 10,
-    repeat: 1
-});
-
-this.anims.create({
-    key: 'covidVerde',
-    frames: this.anims.generateFrameNumbers('covidVerde', { start: 0, end:0 }),
     frameRate: 10,
     repeat: 1
 });

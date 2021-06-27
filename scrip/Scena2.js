@@ -305,7 +305,7 @@ class Scena2 extends Phaser.Scene {
         
 
         covidVerde = this.physics.add.group({
-            key: 'covidVerde',
+            key: 'CovidVerde',
             repeat: 8,
             setXY: { x: 650, y: 150, stepX:Phaser.Math.Between(180,350) }        
         });
